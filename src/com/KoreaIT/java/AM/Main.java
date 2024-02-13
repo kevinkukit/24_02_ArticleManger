@@ -1,5 +1,7 @@
 package com.KoreaIT.java.AM;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +10,8 @@ public class Main {
     Scanner sc = new Scanner(System.in);
 
     int i = 1;
+    List<Article> articles = new ArrayList<>();
+
     while(true) {
       System.out.print("명령어 ) ");
       String cmd = sc.nextLine();    // 문장입력받음
@@ -21,13 +25,24 @@ public class Main {
         break;
 
       } else if (cmd.equals("article list")) {
-        System.out.println("게시글이 없습니다");
+        if(articles.isEmpty()) {
+          System.out.println("게시글이 없습니다");
+        } else {
+          System.out.println("번호|제목|내용");
+          for(Article article : articles) {
+            System.out.println(article.toString());
+          }
+        }
 
       } else if (cmd.equals("article write")) {
         System.out.print("제목: ");
         String title = sc.nextLine();
         System.out.print("내용: ");
         String body = sc.nextLine();
+
+        Article article = new Article(i, title, body);
+        articles.add(article);
+
         System.out.printf("%d번 글이 생성되었습니다\n", i);
         i ++;
 
@@ -39,6 +54,22 @@ public class Main {
     sc.close();
 
     System.out.println("===프로그램 종료===");
+  }
+}
+
+class Article {
+  int i;
+  String title;
+  String body;
+
+  public Article(int i, String title, String body) {
+    this.i = i;
+    this.title = title;
+    this.body = body;
+  }
+
+  public String toString() {
+    return i + " | " + title + " | " + body;
   }
 }
 
