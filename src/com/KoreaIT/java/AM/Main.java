@@ -1,5 +1,6 @@
 package com.KoreaIT.java.AM;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,25 +29,67 @@ public class Main {
         if(articles.isEmpty()) {
           System.out.println("게시글이 없습니다");
         } else {
-          System.out.println(" 번호 | 제목 | 내용 ");
+          System.out.println(" 번호 | 제목 ");
           for(int j = articles.size() - 1; j >= 0;  j--) {
             Article article = articles.get(j);
-            System.out.printf(" %d | %s | %s\n", article.i, article.title, article.body);
+            System.out.printf("  %d | %s \n", article.i, article.title);
           }
         }
+      }
 
-      } else if (cmd.equals("article write")) {
+      else if (cmd.equals("article write")) {
         System.out.print("제목: ");
         String title = sc.nextLine();
         System.out.print("내용: ");
         String body = sc.nextLine();
+        LocalTime now = LocalTime.now();
 
-        Article article = new Article(i, title, body);
+        Article article = new Article(i, title, body, now);
         articles.add(article);
 
         System.out.printf("%d번 글이 생성되었습니다\n", i);
         i ++;
+      }
 
+      else if (cmd.startsWith("article detail")) {
+        String[] cmdBits = cmd.split(" ");
+        String num = cmdBits[2];
+        int id = Integer.parseInt(num);
+        boolean found = false;
+        for(int k = 0; k < articles.size(); k++) {
+          Article article = articles.get(k);
+          if (article.i == id) {  // articles 에서 가져온 article 객체의 글번호와 id 비교
+            found = true;
+            break;
+          }
+        }
+        if(found) {
+          Article article = articles.get(id - 1);
+          System.out.println("번호: " + num);
+          System.out.println("날짜: " + article.now);
+          System.out.println("제목: " + article.title);
+          System.out.println("내용: " + article.body);
+        } else {
+          System.out.println(num + "번 게시물은 존재하지 않습니다");
+        }
+
+      } else if (cmd.startsWith("article delete")) {
+        String[] cmdBits = cmd.split(" ");
+        String num = cmdBits[2];
+        int id = Integer.parseInt(num);
+        boolean found = false;
+        for(int k = 0; k < articles.size(); k++) {
+          Article article = articles.get(k);
+          if (article.i == id) {  // articles 에서 가져온 article 객체의 글번호와 id 비교
+            found = true;
+            break;
+          }
+        }
+        if(found) {
+          articles.remove(id-1);
+        } else {
+          System.out.println(num + "번 게시물은 존재하지 않습니다");
+        }
       } else {
         System.out.println("존재하지 않는 명령어입니다.");
       }
@@ -62,11 +105,13 @@ class Article {
   int i;
   String title;
   String body;
+  LocalTime now;
 
-  public Article(int i, String title, String body) {
+  public Article(int i, String title, String body, LocalTime now) {
     this.i = i;
     this.title = title;
     this.body = body;
+    this.now = now;
   }
 }
 
