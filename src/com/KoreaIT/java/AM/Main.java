@@ -12,6 +12,7 @@ public class Main {
 
     int i = 1;
     List<Article> articles = new ArrayList<>();
+    int deleteNum = 1;
 
     while(true) {
       System.out.print("명령어 ) ");
@@ -84,7 +85,9 @@ public class Main {
           }
         }
         if(found) {
-          articles.remove(id-1);
+          articles.remove(id-deleteNum);
+          System.out.println(num + "번 게시물이 삭제되었습니다");
+          deleteNum++;
         } else {
           System.out.println(num + "번 게시물은 존재하지 않습니다");
         }
