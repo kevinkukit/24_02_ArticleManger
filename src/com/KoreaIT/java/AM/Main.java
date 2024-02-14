@@ -64,7 +64,7 @@ public class Main {
           }
         }
         if(found) {
-          Article article = articles.get(id - 1);
+          Article article = articles.get(id - deleteNum);
           System.out.println("번호: " + num);
           System.out.println("날짜: " + article.now);
           System.out.println("제목: " + article.title);
