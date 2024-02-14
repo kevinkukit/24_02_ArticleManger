@@ -23,14 +23,15 @@ public class Main {
 
       if(cmd.equals("system exit")) {
         break;
-
-      } else if (cmd.equals("article list")) {
+      }
+      if (cmd.equals("article list")) {
         if(articles.isEmpty()) {
           System.out.println("게시글이 없습니다");
         } else {
-          System.out.println("번호|제목|내용");
-          for(Article article : articles) {
-            System.out.println(article.toString());
+          System.out.println(" 번호 | 제목 | 내용 ");
+          for(int j = articles.size() - 1; j >= 0;  j--) {
+            Article article = articles.get(j);
+            System.out.printf(" %d | %s | %s\n", article.i, article.title, article.body);
           }
         }
 
@@ -66,10 +67,6 @@ class Article {
     this.i = i;
     this.title = title;
     this.body = body;
-  }
-
-  public String toString() {
-    return i + " | " + title + " | " + body;
   }
 }
 
