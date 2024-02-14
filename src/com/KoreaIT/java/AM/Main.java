@@ -17,7 +17,7 @@ public class Main {
       System.out.print("명령어 ) ");
       String cmd = sc.nextLine();    // 문장입력받음
 
-      if(cmd.length() == 0) {
+      if(cmd.isEmpty()) {
         System.out.println("명령어를 입력하세요");
         continue;
       }
@@ -56,8 +56,7 @@ public class Main {
         String num = cmdBits[2];
         int id = Integer.parseInt(num);
         boolean found = false;
-        for(int k = 0; k < articles.size(); k++) {
-          Article article = articles.get(k);
+        for (Article article : articles) {
           if (article.i == id) {  // articles 에서 가져온 article 객체의 글번호와 id 비교
             found = true;
             break;
@@ -78,8 +77,7 @@ public class Main {
         String num = cmdBits[2];
         int id = Integer.parseInt(num);
         boolean found = false;
-        for(int k = 0; k < articles.size(); k++) {
-          Article article = articles.get(k);
+        for (Article article : articles) {
           if (article.i == id) {  // articles 에서 가져온 article 객체의 글번호와 id 비교
             found = true;
             break;
